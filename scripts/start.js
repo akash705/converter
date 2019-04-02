@@ -27,6 +27,9 @@
             return null
         }
     }
+    function getEmailFromLocal(){
+        return localStorage.getItem('email');
+    }
     var fileElement = $('#customFile');
     $(fileElement).on('change',function(){
         if(!this.files[0]){
@@ -37,10 +40,15 @@
         let fileNameContainer = getElementByClass('fileName');
         $(fileNameContainer.children[0]).text(files.name);
         $(fileNameContainer).css('display','block');
+        if(!getEmailFromLocal()){
+            console.log(getEmailFromLocal()); 
+            $(getElementByClass('EmailRequired')).css('display','block')
+        }
         $(getElementByClass('basicFile')).css('display','none');
     })
     $(getElementByClass('deleteButton')).on('click',function(){
         let fileNameContainer = getElementByClass('fileName');
+        $(getElementByClass('EmailRequired')).css('display','none')
         $(fileNameContainer).css('display','none');
         $(getElementByClass('basicFile')).css('display','block');
     })
