@@ -29,6 +29,9 @@
     }
     var fileElement = $('#customFile');
     $(fileElement).on('change',function(){
+        if(!this.files[0]){
+            return 0;
+        }
         var files = this.files[0]
         console.log(files.name);
         let fileNameContainer = getElementByClass('fileName');
