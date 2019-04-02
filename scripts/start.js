@@ -18,7 +18,7 @@
             $($('.progressContainer').children()[0]).css('width','80%');
         }
     }
-    progressBar();
+    // progressBar();
     function getElementByClass(name){
         try{
             return $('.'+name)[0];
@@ -37,7 +37,9 @@
         $(getElementByClass('basicFile')).css('display','none');
     })
     $(getElementByClass('deleteButton')).on('click',function(){
-        console.log('buttonClicke');
+        let fileNameContainer = getElementByClass('fileName');
+        $(fileNameContainer).css('display','none');
+        $(getElementByClass('basicFile')).css('display','block');
     })
 
 })($);
