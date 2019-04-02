@@ -1,0 +1,23 @@
+
+.backgroundNav{
+    background-image: linear-gradient(to top left ,#00B4DB,#0083B0)
+}
+.deleteButton{
+    border: none!important;
+    color: black;
+}
+/* .background1{
+    background-image: linear-gradient(to right ,#659999,#f4791f)
+}
+.background2{
+    background-image: linear-gradient(to right ,#8360c3,#2ebf91)
+}
+.background3{
+    background-image: linear-gradient(to right ,#659999,#f4791f)
+}
+.background4{
+    background-image: linear-gradient(to right ,#544a7d,#ffd452)
+}
+.background5{
+    background-image: linear-gradient(to right ,#FF416C,#FF4B2B)
+} */
