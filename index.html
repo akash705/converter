@@ -33,6 +33,14 @@
      
     </nav>
 
+    <!-- <form action="http://localhost:9000/upload"  enctype="multipart/form-data" method="post">
+      <input type="file"  name="myfile"/>
+      <input type="text" value="shuup" name="hahahaha" />
+      <button type="submit">
+        Submit
+      </button>
+    </form> -->
+
     <div class="container-fluid mt-2 mb-2">
       <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -62,12 +70,13 @@
                       <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                   </form>
               </div>
-              <form  id="uploadForm"  enctype="multipart/form-data" action="https://localhost:9000/uploadFile" method="post">
+              <form  id="uploadForm"  action="http://localhost:9000/upload"  enctype="multipart/form-data" method="post">
                 <div class="custom-file basicFile">
-                  <input type="file" name="myFile" class="custom-file-input" id="customFile" accept="audio/*">
+                  <input type="file" name="myfile" class="custom-file-input" id="customFile" accept="audio/*">
                   <label class="custom-file-label" for="customFile"></label>
                 </div>
               </form>
+              <button type="button" class="btn btn-primary" id="submitButton">submit</button>
             </div>
             <div class="card-footer text-light bg-danger border-dark pt-1 pb-1">
               We Don't Spam 
@@ -97,7 +106,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="./scripts/start.js" ></script>

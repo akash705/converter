@@ -13,7 +13,6 @@
             $($('.progressContainer').children()[0]).css('width','80%');
         }
     }
-    // progressBar();
     function getElementByClass(name){
         try{
             return $('.'+name)[0];
@@ -26,53 +25,50 @@
         return localStorage.getItem('email');
     }
     var fileElement = $('#customFile');
-    $(fileElement).on('change',function(){
-        console.log('onChanged called');
-        // checking ajax=================
-        $('#uploadForm').submit(function() { 
-            console.log('uploadingFile');
-            $(this).ajaxSubmit({
-                        error: function(xhr) {  
-                            console.log(xhr);
-                                console.log('error submitting file');
-                        },  
-
-                        success: function(response) {  
-                                console.log(response)  
-                                console.log('done');
-                        }  
-            });
+    // $(fileElement).on('change',function(){
+    //     if(!this.files[0]){
+    //         return 0;
+    //     }
+    //     var files = this.files[0];
+    //     let fileNameContainer = getElementByClass('fileName');
+    //     $(fileNameContainer.children[0]).text(files.name);
+    //     $(fileNameContainer).css('display','block');
+    //     if(!getEmailFromLocal()){
+    //         console.log(getEmailFromLocal()); 
+    //         $(getElementByClass('emailRequired')).css('display','block')
+    //     }
+    //     $(getElementByClass('basicFile')).css('display','none');
+    // })
+    // $(getElementByClass('deleteButton')).on('click',function(){
+    //     let fileNameContainer = getElementByClass('fileName');
+    //     $(getElementByClass('EmailRequired')).css('display','none')
+    //     $(fileNameContainer).css('display','none');
+    //     $(getElementByClass('basicFile')).css('display','block');
+    // })
+    $('#submitButton').on('click',function(){
+        $('form#uploadForm').trigger('submit');
+    })
+    $("form#uploadForm").submit(function(e) {
+        e.preventDefault();    
+        var formData = new FormData(this);
+        $.ajax({
+            url: 'http://localhost:9000/upload',
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                    console.log('form uploaded successfully');
+                    console.log(data);
+            },
+            error:function(err){
+                console.log(err);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
         });
-
-
-
-
-
-
-
-
-
-
-        return 0;
-        //         // checking ajax=================
-        if(!this.files[0]){
-            return 0;
-        }
-        var files = this.files[0];
-        let fileNameContainer = getElementByClass('fileName');
-        $(fileNameContainer.children[0]).text(files.name);
-        $(fileNameContainer).css('display','block');
-        if(!getEmailFromLocal()){
-            console.log(getEmailFromLocal()); 
-            $(getElementByClass('emailRequired')).css('display','block')
-        }
-        $(getElementByClass('basicFile')).css('display','none');
-    })
-    $(getElementByClass('deleteButton')).on('click',function(){
-        let fileNameContainer = getElementByClass('fileName');
-        $(getElementByClass('EmailRequired')).css('display','none')
-        $(fileNameContainer).css('display','none');
-        $(getElementByClass('basicFile')).css('display','block');
-    })
+    });
+    function submit(){
+     
+    }
 
 })($);
