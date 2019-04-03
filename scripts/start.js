@@ -8,11 +8,11 @@
 // }
 (function($){
     var userEmail="";
-    function progressBar(){
-        console.log($('#valueProgress').css('display','flex'));
-        if(true){
-            $($('.progressContainer').children()[0]).css('width','80%');
-        }
+    function progressBar(width){
+        $('#valueProgress').css('display','flex')
+        window.requestAnimationFrame(()=>{
+            $($('.progressContainer').children()[0]).css('width',width);
+        });
     }
     function getElementByClass(name){
         try{
@@ -61,25 +61,22 @@
     $("form#uploadForm").submit(function(e) {
         e.preventDefault();    
         var formData = new FormData(this);
-        console.log(formData);
         $.ajax({
             xhr: function() {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function(evt) {
                     if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
+                        var percentComplete = (evt.loaded / evt.total)*100;
                         //Do something with upload progress here
-                        console.log('progress1',percentComplete)
+                        progressBar(percentComplete+'%');
                     }
                }, false);
-        
                xhr.addEventListener("progress", function(evt) {
                    if (evt.lengthComputable) {
-                       var percentComplete = evt.loaded / evt.total;
-                       console.log('progress1',percentComplete)
+                       var percentComplete = (evt.loaded / evt.total)*100;
+                        progressBar(percentComplete+'%');
                    }
                }, false);
-        
                return xhr;
             },
             url: 'http://localhost:9000/upload',
