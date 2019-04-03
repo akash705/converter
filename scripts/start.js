@@ -1,17 +1,10 @@
-// import $ from 'jquery';
-// function checkFunction(){
-//     console.log('fheckFunction');
-// }
-// checkFunction();
-// export {
-//     checkFunction
-// }
 (function($){
     var userEmail="";
     function progressBar(width){
         $('#valueProgress').css('display','flex')
         window.requestAnimationFrame(()=>{
             $($('.progressContainer').children()[0]).css('width',width);
+            $($('.progressContainer').children()[0]).text(width);
         });
     }
     function getElementByClass(name){
@@ -35,7 +28,6 @@
         $(fileNameContainer.children[0]).text(files.name);
         $(fileNameContainer).css('display','block');
         if(!getEmailFromLocal()){
-            console.log(getEmailFromLocal()); 
             $(getElementByClass('emailRequired')).css('display','block')
         }
         $(getElementByClass('basicFile')).css('display','none');
@@ -60,6 +52,8 @@
     })
     $("form#uploadForm").submit(function(e) {
         e.preventDefault();    
+        $(getElementByClass('emailRequired')).css('display','none')
+        $(getElementByClass('deleteButton')).remove();
         var formData = new FormData(this);
         $.ajax({
             xhr: function() {
@@ -67,14 +61,13 @@
                 xhr.upload.addEventListener("progress", function(evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = (evt.loaded / evt.total)*100;
-                        //Do something with upload progress here
-                        progressBar(percentComplete+'%');
+                        progressBar(percentComplete.toFixed()+'%');
                     }
                }, false);
                xhr.addEventListener("progress", function(evt) {
                    if (evt.lengthComputable) {
                        var percentComplete = (evt.loaded / evt.total)*100;
-                        progressBar(percentComplete+'%');
+                       progressBar(percentComplete.toFixed()+'%');
                    }
                }, false);
                return xhr;
@@ -84,17 +77,20 @@
             headers: { 'x-email': userEmail },
             data: formData,
             success: function (data) {
-                    console.log('form uploaded successfully');
-                    console.log(data);
+                UploadSuccessfull()
             },
             error:function(err){
-                console.log(err);
+                $('.msg').css('display','block').text('File has been upload you will be notified soon');
             },
             cache: false,
             contentType: false,
             processData: false
         });
     });
+    function UploadSuccessfull(){
+            $(getElementByClass('progressContainer'));
+            $('.msg').css('display','block').html('File has been uploaded .You Will be notified on <br> <span class="font-weight-bold">'+userEmail+"</span>");
+    }
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
