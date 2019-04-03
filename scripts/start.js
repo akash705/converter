@@ -27,6 +27,34 @@
     }
     var fileElement = $('#customFile');
     $(fileElement).on('change',function(){
+        console.log('onChanged called');
+        // checking ajax=================
+        $('#uploadForm').submit(function() { 
+            console.log('uploadingFile');
+            $(this).ajaxSubmit({
+                        error: function(xhr) {  
+                            console.log(xhr);
+                                console.log('error submitting file');
+                        },  
+
+                        success: function(response) {  
+                                console.log(response)  
+                                console.log('done');
+                        }  
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+        return 0;
+        //         // checking ajax=================
         if(!this.files[0]){
             return 0;
         }
