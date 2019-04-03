@@ -7,11 +7,6 @@
 //     checkFunction
 // }
 (function($){
-    let fileNameContainer = getElementByClass('fileName');
-    $(fileNameContainer.children[0]).text('files.name');
-    $(fileNameContainer).css('display','block');
-    $(getElementByClass('basicFile')).css('display','none');
-
     function progressBar(){
         console.log($('#valueProgress').css('display','flex'));
         if(true){
@@ -35,14 +30,13 @@
         if(!this.files[0]){
             return 0;
         }
-        var files = this.files[0]
-        console.log(files.name);
+        var files = this.files[0];
         let fileNameContainer = getElementByClass('fileName');
         $(fileNameContainer.children[0]).text(files.name);
         $(fileNameContainer).css('display','block');
         if(!getEmailFromLocal()){
             console.log(getEmailFromLocal()); 
-            $(getElementByClass('EmailRequired')).css('display','block')
+            $(getElementByClass('emailRequired')).css('display','block')
         }
         $(getElementByClass('basicFile')).css('display','none');
     })

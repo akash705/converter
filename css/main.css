@@ -6,6 +6,9 @@
     border: none!important;
     color: black;
 }
+.emailRequired{
+    display: none;
+}
 /* .background1{
     background-image: linear-gradient(to right ,#659999,#f4791f)
 }
