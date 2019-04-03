@@ -61,14 +61,12 @@
                 </div>
               </p>
               <div class="emailRequired" >
-                  <form action="#" >
                       <div class="form-group">
                           <label for="exampleInputEmail1">Email address (required)</label>
-                          <input type="email" class="form-control" required placeholder="Enter email">
+                          <input type="email" class="form-control" required id="emailAddress" placeholder="Enter email">
                           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                       </div>
-                      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                  </form>
+                      <button type="button" id="submitButton" class="btn btn-primary btn-sm">Submit</button>
               </div>
               <form  id="uploadForm"  action="http://localhost:9000/upload"  enctype="multipart/form-data" method="post">
                 <div class="custom-file basicFile">
@@ -76,7 +74,6 @@
                   <label class="custom-file-label" for="customFile"></label>
                 </div>
               </form>
-              <button type="button" class="btn btn-primary" id="submitButton">submit</button>
             </div>
             <div class="card-footer text-light bg-danger border-dark pt-1 pb-1">
               We Don't Spam 

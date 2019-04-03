@@ -7,6 +7,7 @@
 //     checkFunction
 // }
 (function($){
+    var userEmail="";
     function progressBar(){
         console.log($('#valueProgress').css('display','flex'));
         if(true){
@@ -25,35 +26,65 @@
         return localStorage.getItem('email');
     }
     var fileElement = $('#customFile');
-    // $(fileElement).on('change',function(){
-    //     if(!this.files[0]){
-    //         return 0;
-    //     }
-    //     var files = this.files[0];
-    //     let fileNameContainer = getElementByClass('fileName');
-    //     $(fileNameContainer.children[0]).text(files.name);
-    //     $(fileNameContainer).css('display','block');
-    //     if(!getEmailFromLocal()){
-    //         console.log(getEmailFromLocal()); 
-    //         $(getElementByClass('emailRequired')).css('display','block')
-    //     }
-    //     $(getElementByClass('basicFile')).css('display','none');
-    // })
-    // $(getElementByClass('deleteButton')).on('click',function(){
-    //     let fileNameContainer = getElementByClass('fileName');
-    //     $(getElementByClass('EmailRequired')).css('display','none')
-    //     $(fileNameContainer).css('display','none');
-    //     $(getElementByClass('basicFile')).css('display','block');
-    // })
+    $(fileElement).on('change',function(){
+        if(!this.files[0]){
+            return 0;
+        }
+        var files = this.files[0];
+        let fileNameContainer = getElementByClass('fileName');
+        $(fileNameContainer.children[0]).text(files.name);
+        $(fileNameContainer).css('display','block');
+        if(!getEmailFromLocal()){
+            console.log(getEmailFromLocal()); 
+            $(getElementByClass('emailRequired')).css('display','block')
+        }
+        $(getElementByClass('basicFile')).css('display','none');
+    })
+    $(getElementByClass('deleteButton')).on('click',function(){
+        let fileNameContainer = getElementByClass('fileName');
+        $(getElementByClass('emailRequired')).css('display','none')
+        $(fileNameContainer).css('display','none');
+        $(getElementByClass('basicFile')).css('display','block');
+    })
     $('#submitButton').on('click',function(){
-        $('form#uploadForm').trigger('submit');
+        let email = document.getElementById('emailAddress');
+        email = $(email).val();
+        if(!validateEmail(email)){
+            alert('Invalid Email id');
+            return 0;
+        }
+        else{  
+                userEmail=email;
+                $("form#uploadForm").trigger('submit');            
+        }
     })
     $("form#uploadForm").submit(function(e) {
         e.preventDefault();    
         var formData = new FormData(this);
+        console.log(formData);
         $.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        //Do something with upload progress here
+                        console.log('progress1',percentComplete)
+                    }
+               }, false);
+        
+               xhr.addEventListener("progress", function(evt) {
+                   if (evt.lengthComputable) {
+                       var percentComplete = evt.loaded / evt.total;
+                       console.log('progress1',percentComplete)
+                   }
+               }, false);
+        
+               return xhr;
+            },
             url: 'http://localhost:9000/upload',
             type: 'POST',
+            headers: { 'x-email': userEmail },
             data: formData,
             success: function (data) {
                     console.log('form uploaded successfully');
@@ -67,8 +98,9 @@
             processData: false
         });
     });
-    function submit(){
-     
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
 })($);
